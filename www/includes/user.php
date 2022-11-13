@@ -47,15 +47,18 @@ class User {
         }
     }
 
+    /* Checks if the given password is correct. Returns true if it is, false otherwise. */
     public function checkPassword(string $password): bool {
         return password_verify($password, $this->password_hash);
     }
 
+    /* Sets the username of the user to the given value. */
     public function setUsername(Database $db, string $username): void {
         $db->updateUserUsername($this->id, $username);
         $this->username = $username;
     }
 
+    /* Sets the password of the user to the given value. */
     public function setPassword(Database $db, string $new_password): void {
         /* Hash the new password */
         $new_password_hash = password_hash($new_password, PASSWORD_DEFAULT);
@@ -67,11 +70,13 @@ class User {
         $this->password_hash = $new_password_hash;
     }
 
+    /* Sets the email of the user to the given value. */
     public function setEmail(Database $db, string $email): void {
         $db->updateUserEmail($this->id, $email);
         $this->email = $email;
     }
 
+    /* Sets the first aand last name of the user to the given value. */
     public function setName(Database $db, string $first_name, string $last_name): void {
         $db->updateUserName($this->id, $first_name, $last_name);
         $this->first_name = $first_name;
