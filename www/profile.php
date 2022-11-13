@@ -74,14 +74,14 @@ $title = "Base account system";
 include "includes/header.php";
 ?>
 <h1>Profile page</h1>
-Welcome <?php echo $user->first_name; ?>!<br>
+Welcome <?php echo htmlspecialchars($user->first_name); ?>!<br>
 <a href="logout.php">Logout</a><br>
 
 <h2>Edit profile</h2>
 <?php echo $editProfileError; ?>
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
     <label for="username">Username:</label>
-    <input type="text" name="username" value="<?php echo $username; ?>" maxlength="32" required>
+    <input type="text" name="username" value="<?php echo htmlspecialchars($username); ?>" maxlength="32" required>
     <input type="submit" value="Update">
 </form>
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
@@ -91,16 +91,16 @@ Welcome <?php echo $user->first_name; ?>!<br>
 </form>
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
     <label for="email">Email:</label>
-    <input type="email" name="email" value="<?php echo $email; ?>" maxlength="128" required>
+    <input type="email" name="email" value="<?php echo htmlspecialchars($email); ?>" maxlength="128" required>
     <input type="submit" value="Update">
 </form>
 <br>
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
     <label for="first_name">First name:</label>
-    <input type="text" name="first_name" value="<?php echo $user->first_name; ?>" maxlength="256" required>
+    <input type="text" name="first_name" value="<?php echo htmlspecialchars($user->first_name); ?>" maxlength="256" required>
     <br>
     <label for="last_name">Last name:</label>
-    <input type="text" name="last_name" value="<?php echo $user->last_name; ?>" maxlength="256" required>
+    <input type="text" name="last_name" value="<?php echo htmlspecialchars($user->last_name); ?>" maxlength="256" required>
     <br>
     <input type="submit" value="Update">
 </form>
