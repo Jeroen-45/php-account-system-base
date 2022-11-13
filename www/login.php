@@ -22,8 +22,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
 
     /* Get the user from the database */
-    $database = new Database();
-    $user = $database->getUser($username);
+    $db = new Database();
+    $user = $db->getUser($username);
 
     /* Check if the user exists and if the password is correct */
     if ($user && $user->checkPassword($password)) {
