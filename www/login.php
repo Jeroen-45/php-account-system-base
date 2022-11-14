@@ -43,8 +43,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 <h1>Login</h1>
 <?php echo $loginError; ?>
-<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"])
-                         . (isset($_GET['redirect']) ? "?redirect=" . urlencode($_GET['redirect']) : ""); ?>" method="post">
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]
+                         . (isset($_GET['redirect']) ? "?redirect=" . urlencode($_GET['redirect']) : "")); ?>" method="post">
     <label for="username">Username:</label>
     <input type="text" name="username" value="<?php echo $username; ?>" required>
     <br>
@@ -53,6 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <br>
     <input type="submit" value="Login">
 </form>
+<a href="forgot_password.php">Forgot password?</a>
 <?php
 include "includes/footer.php";
 ?>

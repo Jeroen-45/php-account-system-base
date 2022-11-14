@@ -45,7 +45,24 @@ class Database {
         $stmt->execute(['username' => $username]);
         $user = $stmt->fetch();
 
-        /* If the user exists, return a new User object. Return false otherwise. */
+        /* If the user exists, return a new User object. Return null otherwise. */
+        if ($user) {
+            return new User(intval($user['id']), $user['username'], $user['password_hash'], $user['email'],
+                            $user['first_name'], $user['last_name'], intval($user['privilege_level']));
+        } else {
+            return null;
+        }
+    }
+
+    /* Gets the user with the given email from the database.
+     * Returns a User object if the user exists, null otherwise. */
+    public function getUserByEmail(string $email): ?User {
+        /* Search the database for the user */
+        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE email = :email LIMIT 1");
+        $stmt->execute(['email' => $email]);
+        $user = $stmt->fetch();
+
+        /* If the user exists, return a new User object. Return null otherwise. */
         if ($user) {
             return new User(intval($user['id']), $user['username'], $user['password_hash'], $user['email'],
                             $user['first_name'], $user['last_name'], intval($user['privilege_level']));
@@ -124,5 +141,51 @@ class Database {
     public function updateUserName(int $id, string $first_name, string $last_name): void {
         $stmt = $this->pdo->prepare("UPDATE users SET first_name = :first_name, last_name = :last_name WHERE id = :id");
         $stmt->execute(['first_name' => $first_name, 'last_name' => $last_name, 'id' => $id]);
+    }
+
+    /* Gets the user id for the given password reset token.
+     * Returns the user id if the token exists and hasn't expired, null otherwise. */
+    public function getUserIdForPasswordResetToken(string $token): ?int {
+        /* Search the database for the token */
+        $stmt = $this->pdo->prepare("SELECT user_id
+                                     FROM password_reset_tokens
+                                     WHERE token = :token
+                                        AND creation_timestamp > NOW() - INTERVAL 1 HOUR
+                                     LIMIT 1");
+        $stmt->execute(['token' => $token]);
+        $user_id = $stmt->fetchColumn();
+
+        /* If the token exists, return the associated user id. Return null otherwise. */
+        if ($user_id) {
+            return intval($user_id);
+        } else {
+            return null;
+        }
+    }
+
+    /* Inserts a password reset token into the database for the given user.
+     * Returns the newly generated token. */
+    public function createPasswordResetToken(int $user_id): string {
+        /* Generate cryptographically random password reset token */
+        $token = bin2hex(random_bytes(64));
+
+        /* Insert the token into the database */
+        $stmt = $this->pdo->prepare("INSERT INTO password_reset_tokens (token, user_id) VALUES (:token, :user_id)");
+        $stmt->execute(['token' => $token, 'user_id' => $user_id]);
+
+        /* Return the token */
+        return $token;
+    }
+
+    /* Deletes the password reset tokens for a given user id from the database. */
+    public function deletePasswordResetTokens(int $user_id): void {
+        $stmt = $this->pdo->prepare("DELETE FROM password_reset_tokens WHERE user_id = :user_id");
+        $stmt->execute(['user_id' => $user_id]);
+    }
+
+    /* Deletes all expired password reset tokens from the database. */
+    public function deleteExpiredPasswordResetTokens(): void {
+        $stmt = $this->pdo->prepare("DELETE FROM password_reset_tokens WHERE creation_timestamp < NOW() - INTERVAL 1 HOUR");
+        $stmt->execute();
     }
 }
