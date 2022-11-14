@@ -1,12 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 5.2.0
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Gegenereerd op: 13 nov 2022 om 04:06
--- Serverversie: 10.4.24-MariaDB
--- PHP-versie: 8.1.6
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -20,6 +11,18 @@ SET time_zone = "+00:00";
 --
 -- Database: `base_account_system`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `password_reset_tokens`
+--
+
+CREATE TABLE `password_reset_tokens` (
+  `token` varchar(64) NOT NULL,
+  `creation_timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -40,6 +43,12 @@ CREATE TABLE `users` (
 --
 -- Indexen voor geëxporteerde tabellen
 --
+
+--
+-- Indexen voor tabel `password_reset_tokens`
+--
+ALTER TABLE `password_reset_tokens`
+  ADD PRIMARY KEY (`token`);
 
 --
 -- Indexen voor tabel `users`
