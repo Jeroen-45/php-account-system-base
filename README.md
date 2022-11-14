@@ -10,7 +10,9 @@ This system contains the following features:
 
 ## Usage
 You can put the `www` folder on a publicly accessible website and import the `users.sql` file into your database.
-The credentials for mysql can be set in `settings.php`. You can also set the minimum session duration here.
+The credentials for mysql can be set in `settings.php`. You can also set the minimum session duration here.  
+`cron/delete_expired_password_reset_tokens.php` can be ran occasionally, for example every 24 hours, to clean up expired password reset tokens from the database.
+
 
 If you want a page to members-only you can put the following code at the top of your PHP page:
 ```php
