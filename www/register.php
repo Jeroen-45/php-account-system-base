@@ -1,7 +1,6 @@
 <?php
 include_once "includes/user.php";
 include_once "includes/database.php";
-$db = new Database();
 
 $title = "Base account system - Register";
 include "includes/header.php";
@@ -45,6 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         /* Create new user and log it in if no exception is thrown */
         try {
+            $db = new Database();
             $new_user = $db->createUser($username, $password_hash, $email, $first_name, $last_name);
             $_SESSION['user'] = $new_user;
             header("Location: profile.php");
