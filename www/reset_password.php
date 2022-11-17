@@ -54,7 +54,8 @@ if ($userId && $_SERVER["REQUEST_METHOD"] == "POST") {
     <a href="forgot_password.php">Try again</a>
 <?php } else { ?>
     <?php echo $passwordError; ?>
-    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF'] . "?token=" . $_GET['token']);?>" method="post">
+    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF'] . "?token=" . $_GET['token']);?>"
+          method="post" autocomplete="off">
         <label for="password">New password:</label>
         <input type="password" name="password" required>
         <br>

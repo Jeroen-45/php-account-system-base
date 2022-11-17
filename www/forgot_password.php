@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     If an account with the given email address exists, an email with a password reset link has been sent.<br>
     <a href="login.php">Back to login</a>
 <?php } else { ?>
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="post">
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="post" autocomplete="off">
         <label for="username">Account email:</label>
         <input type="text" name="email" required>
         <br>

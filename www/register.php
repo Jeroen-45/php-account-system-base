@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 <h1>Register</h1>
 <?php echo $registerError; ?>
-<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" autocomplete="off">
     <label for="username">Username:</label>
     <input type="text" name="username" value="<?php echo $username; ?>" maxlength="32" required>
     <br>

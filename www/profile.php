@@ -79,23 +79,23 @@ Welcome <?php echo htmlspecialchars($user->first_name); ?>!<br>
 
 <h2>Edit profile</h2>
 <?php echo $editProfileError; ?>
-<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" autocomplete="off">
     <label for="username">Username:</label>
     <input type="text" name="username" value="<?php echo htmlspecialchars($username); ?>" maxlength="32" required>
     <input type="submit" value="Update">
 </form>
-<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" autocomplete="off">
     <label for="password">Password:</label>
     <input type="password" name="password" required>
     <input type="submit" value="Update">
 </form>
-<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" autocomplete="off">
     <label for="email">Email:</label>
     <input type="email" name="email" value="<?php echo htmlspecialchars($email); ?>" maxlength="128" required>
     <input type="submit" value="Update">
 </form>
 <br>
-<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" autocomplete="off">
     <label for="first_name">First name:</label>
     <input type="text" name="first_name" value="<?php echo htmlspecialchars($user->first_name); ?>" maxlength="256" required>
     <br>
