@@ -29,10 +29,12 @@ class User {
      * Returns null otherwise. */
     public static function authUser(int $privilege_level = 1): ?User {
         /* Start / resume session */
-        $settings = require "settings.php";
-        ini_set('session.gc_maxlifetime', $settings->session_timeout);
-        session_set_cookie_params($settings->session_timeout);
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            $settings = require "settings.php";
+            ini_set('session.gc_maxlifetime', $settings->session_timeout);
+            session_set_cookie_params($settings->session_timeout);
+            session_start();
+        }
 
         /* Check if a user session exists and if the user has the required privilege level */
         if (isset($_SESSION['user']) && $_SESSION['user']->privilege_level >= $privilege_level) {

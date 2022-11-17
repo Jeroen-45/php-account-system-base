@@ -28,7 +28,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     /* Check if the user exists and if the password is correct */
     if ($user && $user->checkPassword($password)) {
         /* Password is correct, start a new session and redirect to the user page */
-        session_start();
         $_SESSION['user'] = $user;
 
         /* Get redirect url or default and redirect */
