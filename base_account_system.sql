@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `password_reset_tokens` (
-  `token` varchar(64) NOT NULL,
+  `token` varchar(128) NOT NULL,
   `creation_timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
